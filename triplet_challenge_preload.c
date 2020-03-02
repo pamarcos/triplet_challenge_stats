@@ -30,6 +30,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <time.h>
+#include <stdarg.h>
 
 #include "triplet_challenge_stats.h"
 
@@ -104,21 +105,11 @@ int open(const char* pathname, int flags, ...)
     return orig_open(pathname, flags);
 }
 
-int close(int fd)
+int open64(const char *pathname, int flags, ...)
 {
-    if (!orig_close)
-        return -1;
-
-    if (fd == tcs_fd) {
-        if (!tcs_fd) {
-            LOG("Error stoping timer when it was not started\n");
-            return -1;
-        }
-
-        LOG("Closing file %s: ", TCS_FILE_NAME);
-        stopTimer();
-        return 0;
-    } else {
-        return orig_close(fd);
-    }
+    va_list vl;
+    va_start(vl, flags);
+    int ret = open(pathname, flags, vl);
+    va_end(vl);
+    return ret;
 }

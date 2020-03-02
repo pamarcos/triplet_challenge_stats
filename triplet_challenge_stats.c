@@ -85,7 +85,7 @@ void help()
     printf("Options:\n"
         "open  - opens the shared memory area\n"
         "close - closes the shared memory area\n"
-        "clean - cleans the shared memory area\n"
+        "clear - clears the shared memory area\n"
         "read  - reads the values in shared memory area\n"
         "help  - shows this help\n");
 }
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
             openSharedMem();
         } else if (strcmp(argv[1], "close") == 0) {
             closeSharedMem();
-        } else if (strcmp(argv[1], "clean") == 0) {
+        } else if (strcmp(argv[1], "clear") == 0) {
             closeSharedMem();
             openSharedMem();
         } else if (strstr(argv[1], "help")) {
